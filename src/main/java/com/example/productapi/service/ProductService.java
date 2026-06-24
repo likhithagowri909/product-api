@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import com.example.productapi.exception.ResourceNotFoundException;
 @Service
 public class ProductService {
 
@@ -22,11 +22,14 @@ public class ProductService {
     }
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public Product updateProduct(Long id, Product product) {
-        Product existing = productRepository.findById(id).orElseThrow();
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Product not found with id: " + id));
 
         existing.setName(product.getName());
         existing.setDescription(product.getDescription());
