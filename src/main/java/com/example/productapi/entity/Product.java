@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 @Entity
 @Table(name = "products")
 public class Product {
@@ -13,17 +15,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Product name is required")
+    @NotBlank(message = "Product name cannot be empty")
     private String name;
 
-    @NotBlank(message = "Description is required")
+    @NotBlank(message = "Description cannot be empty")
     private String description;
 
     @Positive(message = "Price must be greater than 0")
-    private double price;
+    private Double price;
 
     @PositiveOrZero(message = "Quantity cannot be negative")
-    private int quantity;
+    private Integer quantity;
 
     public Product() {
     }
